@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0D6B65" />
+    <title>MindCare | Support that stays with you</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css?v=6" />
+    <link rel="stylesheet" href="mood-icons.css" />
+    <style>
+      #modal[hidden]{display:none!important}
+      .checkin-status{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin:4px 0 13px;font-size:12px;color:var(--teal)}
+      .checkin-track{height:9px;border-radius:20px;background:#dceaff;overflow:hidden}.checkin-track span{display:block;width:62%;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--coral),var(--teal));transition:width .4s ease}
+      .moods button.selected{transform:translateY(-2px);font-weight:700}.moods button.selected:after{content:'✓';position:absolute;right:-3px;top:-8px;display:grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--teal);color:white;font-size:10px}
+      .pulse-ring{border:0!important;isolation:isolate;background:conic-gradient(from -48deg,#fff 0 var(--progress,62%),rgba(255,255,255,.22) var(--progress,62%) 100%)!important;transform:none;transition:background .4s ease}.pulse-ring:before{content:'';position:absolute;inset:10px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#4168db 0,#2534aa 68%);box-shadow:inset 0 1px 1px rgba(255,255,255,.3);z-index:0}.pulse-ring:after{content:'';position:absolute;inset:3px;border-radius:50%;border:1px solid rgba(255,255,255,.3);z-index:-1}.pulse-ring strong,.pulse-ring span{position:relative;z-index:1;transform:none;color:#fff}.pulse-ring strong{font:700 39px 'DM Sans',sans-serif;letter-spacing:-2px}.pulse-ring span{position:absolute;right:23px;bottom:27px;font-size:11px}.timer-display{font:700 38px 'DM Sans',sans-serif;color:var(--teal);letter-spacing:2px;margin:16px 0}.modal .timer-display+button{margin-top:4px}
+    </style>
+  </head>
+  <body>
+    <section class="role-gate" id="roleGate" aria-labelledby="roleTitle">
+      <div class="role-card">
+        <span class="brand-mark" aria-hidden="true">m</span>
+        <p class="eyebrow">MIN DCARE DEMO</p>
+        <h1 id="roleTitle">Choose your <em>workspace.</em></h1>
+        <p>This prototype uses a local, role-based demo entry. No credentials are collected or sent.</p>
+        <div class="role-actions"><button class="primary-button" data-role="patient">Continue as participant</button><button class="soft-button" data-role="counselor">Continue as counselor</button></div>
+        <small>Demo access only · In production, this is where secure authentication and consent checks belong.</small>
+      </div>
+    </section>
+    <div class="app-shell" id="appShell" hidden>
+      <header>
+        <a class="brand" href="#" aria-label="MindCare home"><span class="brand-mark">m</span><span>mind<span>care</span></span></a>
+        <nav aria-label="Main navigation"><button class="nav-link active" data-view="care" data-i18n="space">My space</button><button class="nav-link" data-view="counselor" data-i18n="counselor">Counselor view</button></nav>
+        <div class="header-actions"><label class="language"><span aria-hidden="true">◉</span><select id="language" aria-label="Select language"><option>English</option><option>हिन्दी</option><option>தமிழ்</option><option>తెలుగు</option><option>ಕನ್ನಡ</option><option>മലയാളം</option><option>বাংলা</option><option>मराठी</option><option>ગુજરાતી</option><option>ਪੰਜਾਬੀ</option></select></label><button class="profile" aria-label="Profile">AS</button></div>
+      </header>
+
+      <main id="careView">
+        <section class="welcome-row">
+          <div><p class="eyebrow" data-i18n="date">TUESDAY, 25 AUGUST</p><h1 data-i18n-html="welcomeTitle">A quiet space for <em>you.</em></h1><p class="subtle" data-i18n="welcome">Welcome back, Akshavi. We can take this one moment at a time.</p></div>
+          <button class="soft-button" id="consentBtn"><span>⌁</span> Your choices & privacy</button>
+        </section>
+
+        <section class="top-grid">
+          <article class="mood-card card"><div class="card-heading"><div><p class="eyebrow" data-i18n="checkin">TODAY'S CHECK-IN</p><h2 data-i18n="howFeel">How are you feeling?</h2></div><span class="sun-icon">☼</span></div><div class="moods" role="group" aria-label="How are you feeling?"><button data-mood="Difficult" aria-label="Difficult"><span class="mood-face face-difficult" aria-hidden="true"></span><small>Difficult</small></button><button data-mood="Low" aria-label="Low"><span class="mood-face face-low" aria-hidden="true"></span><small>Low</small></button><button data-mood="Okay" class="selected" aria-label="Okay"><span class="mood-face face-okay" aria-hidden="true"></span><small>Okay</small></button><button data-mood="Good" aria-label="Good"><span class="mood-face face-good" aria-hidden="true"></span><small>Good</small></button><button data-mood="Bright" aria-label="Bright"><span class="mood-face face-bright" aria-hidden="true"></span><small>Bright</small></button></div><div class="checkin-status"><strong id="selectedMood">Selected: Okay</strong><div class="checkin-track" aria-label="Today’s wellness level"><span id="checkinFill"></span></div><span id="checkinValue">62%</span></div><p id="moodNote" class="mood-note">It’s okay to be exactly where you are.</p></article>
+          <article class="wellness-card"><div class="wellness-copy"><p class="eyebrow">WELLNESS PULSE</p><h2 id="pulseTitle">Steady today</h2><p id="pulseCopy">Your check-ins suggest a stable week.</p><button id="pulseBtn" class="text-button">See what this means <span>→</span></button></div><div class="pulse-ring" id="pulseRing" aria-label="Wellness indicator 62 out of 100"><strong id="pulseNumber">62</strong><span>/100</span></div><p class="demo-label">DEMO INDICATOR · NOT A DIAGNOSIS</p></article>
+        </section>
+
+        <section class="content-grid">
+          <article class="chat-card card"><div class="card-heading"><div class="assistant-id"><span class="ai-orb">✦</span><div><h2>Talk to Rio</h2><p><i></i> Here with you</p></div></div><button class="more" aria-label="Chat information">•••</button></div><div class="chat-messages" id="messages" aria-live="polite"><div class="message bot">Hello Akshavi. I’m Rio, your MindCare guide. How has today felt for you?</div><div class="suggestions"><button>I'm feeling anxious</button><button>I need a small pause</button><button>Talk about my case</button></div></div><section class="safety-panel" id="safetyPanel" hidden role="alert" aria-labelledby="safetyTitle"><div><p class="eyebrow">IMMEDIATE SUPPORT</p><h3 id="safetyTitle">Your safety matters right now.</h3><p>If you may act on thoughts of harming yourself or are in immediate danger, call emergency services or a trusted person now.</p></div><div class="safety-actions"><a class="primary-button" href="tel:112">Call 112</a><a class="soft-button" href="tel:14416">Tele-MANAS 14416</a><button class="soft-button" id="alertCounselorBtn">Alert counselor</button></div><small>This is a rule-based demo safety prompt, not a diagnosis or emergency service.</small></section><form class="chat-input" id="chatForm"><input id="chatText" autocomplete="off" placeholder="Share what’s on your mind…" aria-label="Message Rio" /><button type="submit" aria-label="Send message">↑</button></form><p class="chat-footnote">Rule-based demo guidance · It can miss context. For emergencies, use the support options above.</p></article>
+          <aside class="right-stack">
+            <article class="support-card"><div class="support-title"><span class="lifebuoy">✚</span><div><p class="eyebrow">NEED SUPPORT NOW?</p><h2>You don’t have to wait.</h2></div></div><p>Reach a trained person or choose a grounding exercise.</p><div class="support-buttons"><a id="helplineBtn" href="tel:14416">Call Tele-MANAS <strong>14416</strong></a><button id="groundBtn">Try a 60-sec reset <span>→</span></button></div><small>Tele-MANAS is India’s national tele-mental health helpline. If there is immediate danger, call 112.</small></article>
+            <article class="resource-card card"><div class="card-heading"><div><p class="eyebrow">GENTLE TOOLS</p><h2>For this moment</h2></div><button class="more" aria-label="More resources">•••</button></div><div class="resources"><button class="resource"><b class="resource-icon lavender">≋</b><span><strong>Box breathing</strong><small>2 minutes</small></span><em>→</em></button><button class="resource"><b class="resource-icon yellow">✺</b><span><strong>Grounding guide</strong><small>5 senses exercise</small></span><em>→</em></button></div></article>
+          </aside>
+        </section>
+        <section class="journey card"><div><p class="eyebrow">YOUR JOURNEY</p><h2>Small steps count.</h2></div><div class="journey-stat"><strong id="weeklyCheckins">3</strong><span>check-ins<br />this week</span></div><div class="journey-stat"><strong>12m</strong><span>time for<br />yourself</span></div><div class="journey-trend"><svg viewBox="0 0 180 48" role="img" id="journeyChart" aria-labelledby="journeyChartLabel"><title id="journeyChartLabel">Your recent wellness check-in trend</title><path id="journeyChartPath" d="M2 32 L30 26 L60 34 L90 22 L120 28 L150 16 L178 20" fill="none" stroke="#4142c9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Recent check-ins</span></div><button id="journeyBtn" class="text-button">View gentle progress →</button></section>
+      </main>
+
+      <main id="counselorView" hidden>
+        <section class="dashboard-head"><div><p class="eyebrow">COUNSELOR WORKSPACE · DEMO DATA</p><h1>Good morning, <em>Dr. Meera.</em></h1><p class="subtle">A focused view of people who may benefit from a check-in.</p></div><button class="primary-button" id="refreshBtn">↻ Refresh overview</button></section>
+        <section class="dashboard-stats"><article><span class="stat-icon teal">⌁</span><div><strong>24</strong><p>Active support plans</p></div></article><article><span class="stat-icon coral">!</span><div><strong>3</strong><p>Review suggested today</p></div></article><article><span class="stat-icon gold">↗</span><div><strong>81%</strong><p>Check-in completion</p></div></article></section>
+        <section class="dashboard-grid"><article class="case-list card"><div class="card-heading"><div><p class="eyebrow">PRIORITY QUEUE</p><h2>People to review</h2></div><button class="filter">Filter ⌄</button></div><div id="caseList"></div></article><article class="case-detail card"><div class="detail-top"><div class="avatar" id="detailAvatar">AK</div><div><h2 id="detailName">Akshavi</h2><p id="detailMeta">Investigation stage · Weekly check-in</p></div><span class="status stable" id="detailStatus">Steady</span></div><div class="risk-panel"><div><p class="eyebrow">DISTRESS & SUPPORT (DDS)</p><strong id="ddsValue">62 <small>/ 100</small></strong><p id="ddsText">Monitoring signal, not a clinical diagnosis</p></div><svg viewBox="0 0 220 70" role="img" id="counselorTrend" aria-labelledby="counselorTrendLabel"><title id="counselorTrendLabel">Akshavi’s recent wellness trend, score 62 out of 100</title><path d="M2 45 C25 40, 33 58, 55 45 S86 13, 107 27 S139 48, 157 32 S190 25, 218 13" fill="none" stroke="#4142C9" stroke-width="4" stroke-linecap="round"/></svg></div><div class="preview"><p class="eyebrow">CONVERSATION PREVIEW</p><blockquote id="previewText">“I’ve been sleeping a little better. The next hearing is still on my mind.”</blockquote><span>Today · 10:42 AM</span></div><div class="detail-actions"><button class="soft-button" id="openChatBtn">Open conversation</button><button class="primary-button" id="checkinBtn">Send gentle check-in</button></div><p class="governance-note">Rule-based flags only suggest review. Outreach and emergency actions remain human-led, consent-based, and subject to local protocol.</p></article></section>
+      </main>
+    </div>
+    <div class="modal-backdrop" id="modal" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="modalClose" data-close-modal type="button" aria-label="Close">×</button><p class="eyebrow" id="modalKicker">MINDFUL MOMENT</p><h2 id="modalTitle">Take a slow breath</h2><p id="modalText">Breathe in for four, hold for four, and breathe out for four. Repeat at your own pace.</p><div id="timerDisplay" class="timer-display" hidden>01:00</div><button class="primary-button" id="modalAction" data-close-modal type="button">I understand</button></div></div>
+    <script src="app.js?v=14"></script>
+    <script>
+      document.addEventListener('click', function (event) {
+        var modal = document.getElementById('modal');
+        if (event.target.closest('[data-close-modal]') || event.target === modal) modal.hidden = true;
+      });
+    </script>
+  </body>
+</html>

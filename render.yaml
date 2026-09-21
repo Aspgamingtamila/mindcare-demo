@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mindcare-demo
+    runtime: docker
+    plan: starter
+    healthCheckPath: /
+    disk:
+      name: mindcare-data
+      mountPath: /var/data
+      sizeGB: 1
